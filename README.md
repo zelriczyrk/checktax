@@ -1,29 +1,37 @@
-<!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Check Tax</title>
+    <style>
+        #taxBtn {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #0ff;
+            padding: 10px 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+            transition: 0.3s;
+        }
+        #taxBtn:hover {
+            background: #0ff;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
     <button id="taxBtn">Check Tax</button>
     <div id="result"></div>
 
     <script>
-        // Функция для генерации случайного налога каждые 15 минут
+        // Функция генерации налога (интервал 15 минут)
         function getTax() {
             const now = new Date();
             const interval = Math.floor(now.getUTCMinutes() / 15);
-            // Использование времени для фиксации значения на 15 минут
-            const seed = now.getUTCFullYear() + now.getUTCMonth() + now.getUTCDate() + now.getUTCHours() + interval;
-            
-            // Псевдослучайное число на основе seed
+            const seed = now.getUTCDate() + now.getUTCHours() + interval;
             const random = Math.abs(Math.sin(seed) * 10000) % 1;
             const tax = (5 + random * 3).toFixed(2);
-            
-            return {
-                tax: tax,
-                time: now.toUTCString()
-            };
+            return { tax: tax, time: now.toUTCString() };
         }
 
         document.getElementById('taxBtn').addEventListener('click', () => {
@@ -33,3 +41,4 @@
     </script>
 </body>
 </html>
+
